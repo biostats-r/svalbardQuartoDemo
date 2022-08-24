@@ -8,7 +8,7 @@ The goal of the svalbardQuartoDemo repo is to demonstrate how to use quarto mark
 It is designed to be used with the [Enough Markdown to Write a Thesis biostats](https://biostats-r.github.io/biostats/quarto/index.html) book.
 It can also be used with the [R Markdown](https://biostats-r.github.io/biostats/rmarkdown/index.html) is you have problems installing or running quarto.
 
-You can download and start quartoDemo with this code
+You can download and start svalbardQuartoDemo with this code
 
 ``` r
 #install.packages("usethis") # install usethis package if necessary
