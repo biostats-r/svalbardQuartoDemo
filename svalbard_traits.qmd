@@ -67,7 +67,7 @@ mod_summary <- tidy(mod)
 
 ```
 
-In total, we measured the height of `r nrow(bistorta_height)` Bistorta vivipera plants across the different habitats (@tbl-monthly-means).
+In total, we measured the height of `r nrow(bistorta_height)` Bistorta vivipera plants across the different habitats (@tbl-height-means).
 The Bistorta vivipera in the OTC plots is `r mod_summary$estimate[2]` cm ± `r mod_summary$std.error[2]` taller than in the control plots.
 
 ```{r}
@@ -83,7 +83,7 @@ bistorta_height |>
 ```
 
 ```{r}
-#| label: fig-annual-temp
+#| label: fig-height-effect
 
 ggplot(bistorta_height, aes(x = Treatment, y = Value)) +
   geom_boxplot(fill = "grey80") +
