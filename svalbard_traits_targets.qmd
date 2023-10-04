@@ -11,17 +11,13 @@ execute:
 ```{r}
 #| label: load-packages
 #| message: false
-library(tidyverse) # for ggplot2, dplyr, readr etc
+
 library(here)      # for help finding files
-library(lubridate) # for handling dates & times
-library(gt)        # for tables
-library(broom)     # for extracting results from models
+library(tidyverse) # for ggplot2, dplyr, readr etc
 
 # default plot theme
 theme_set(theme_bw())
 
-# default number of digit
-options(digits = 2)
 ```
 
 # Introduction
@@ -63,27 +59,13 @@ bistorta <- traits |>
 ```{r}
 #| label: model
 
-# run a linear model and use the tidy function to get the model output
-mod <- lm(Value ~ Treatment, data = bistorta)
-mod_summary <- tidy(mod)
+# run a linear model
+mod_height <- lm(Value ~ Treatment, data = bistorta)
 
 ```
 
-In total, we measured the height of 77 *Bistorta vivipera* plants across the different habitats (@tbl-height-means). The *Bistorta vivipera* in the OTC plots is 1.2 cm ± 0.39 taller than in the control plots.
-
-```{r}
-#| label: tbl-height-means
-#| message: false
-#| tbl-cap: Mean height and number of individuals per treatment and habitat type (CH = Cassiope heath, DH = Dryas heath and SB = Snowbed).
-
-# make pretty table with average plant height per habitat
-bistorta |> 
-  group_by(Treatment, Site) |> 
-  summarise(n = n(), mean_height = mean(Value)) |> 
-  gt() |> 
-  cols_label(n = "Number of plants", Site = "Habitat", mean_height = "Height cm")
-  
-```
+In total, we measured the height of 77 *Bistorta vivipera* plants across the different habitats. 
+The *Bistorta vivipera* in the OTC plots is 1.2 cm ± 0.39 taller than in the control plots (@fig-height-effect).
 
 ```{r}
 #| label: fig-height-effect
