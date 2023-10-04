@@ -38,9 +38,10 @@ In 2001, ten plots (75x75 cm) were selected in each of the three habitats. Half 
 
 ## Data Analysis
 
-Trait data are archived at [OSF](https://osf.io/smbqh).
-
+To test the effect of warming on plant height, a linear regression with a normal error distribution was used.
+Plant height was the reponse variable and warming treatment the predictor.
 Data were analysed in R version `r paste(R.version$major, R.version$minor, sep = ".")` [@R], using tidyverse for data manipulation and plots [@tidyverse].
+The trait data are archived at [OSF](https://osf.io/smbqh).
 
 # Results
 
@@ -48,34 +49,35 @@ Data were analysed in R version `r paste(R.version$major, R.version$minor, sep =
 #| label: load-data
 #| message: false
 
+# import data
 traits <- read_delim(
     file = here("data/PFTC4_Svalbard_2018_ITEX_Traits.csv")) 
 
-# Filter out the required species
+# filter bistorta species and plant height
 bistorta <- traits |>
-  filter(Taxon == "bistorta vivipara")
+  filter(Taxon == "bistorta vivipara",
+         Trait == "Plant_Height_cm")
 
 ```
 
 ```{r}
 #| label: model
 
-bistorta_height <- bistorta |> 
-  filter(Trait == "Plant_Height_cm")
-
-mod <- lm(Value ~ Treatment, data = bistorta_height)
+# run a linear model and use the tidy function to get the model output
+mod <- lm(Value ~ Treatment, data = bistorta)
 mod_summary <- tidy(mod)
 
 ```
 
-In total, we measured the height of `r nrow(bistorta_height)` *Bistorta vivipera* plants across the different habitats (@tbl-height-means). The *Bistorta vivipera* in the OTC plots is `r mod_summary$estimate[2]` cm ± `r mod_summary$std.error[2]` taller than in the control plots.
+In total, we measured the height of 77 *Bistorta vivipera* plants across the different habitats (@tbl-height-means). The *Bistorta vivipera* in the OTC plots is 1.2 cm ± 0.39 taller than in the control plots.
 
 ```{r}
 #| label: tbl-height-means
 #| message: false
 #| tbl-cap: Mean height and number of individuals per treatment and habitat type (CH = Cassiope heath, DH = Dryas heath and SB = Snowbed).
 
-bistorta_height |> 
+# make pretty table with average plant height per habitat
+bistorta |> 
   group_by(Treatment, Site) |> 
   summarise(n = n(), mean_height = mean(Value)) |> 
   gt() |> 
@@ -88,7 +90,7 @@ bistorta_height |>
 #| fig-cap: Mean plant height in control (CTL) and warm (OTC) plots.
 #| fig-width: 5.2
 
-ggplot(bistorta_height, aes(x = Treatment, y = Value)) +
+ggplot(bistorta, aes(x = Treatment, y = Value)) +
   geom_boxplot(fill = c("grey80", "red")) +
   labs(x = "Treatment", y = "Height cm")
 ```
