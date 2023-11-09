@@ -1,0 +1,74 @@
+---
+title: "Effect of climate change on Bistorta vivipara traits on Svalbard"
+format: html
+editor: visual
+bibliography: references.bib
+csl: nordic-journal-of-botany.csl
+execute:
+  echo: false
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+
+library(here)      # for help finding files
+library(tidyverse) # for ggplot2, dplyr, readr etc
+
+# default plot theme
+theme_set(theme_bw())
+
+```
+
+# Introduction
+
+Climate change is expected to have large impacts on both marine [@perry2005] and terrestrial ecosystems in Norway.
+
+# Methods
+
+## Field methods
+
+The experiment was carried out in the high Arctic, in Endalen (78°11'N, 15°45'E), approximately four kilometres east of Longyearbyen, Svalbard, at 80-90 m elevation. The experiment was established in 2002 in three different habitats which are located in the south--southeast--facing hillside of the valley. The habitats differ in vegetation composition and the time of snowmelt (and hence the length of the growing season). The habitats include a relatively dry Dryas heath with thin snow cover (ca. 10 cm) and early snowmelt, a mesic Cassiope heath habitat with intermediate snow depth and melting date, and a moist snowbed community with deep snow (\> 100 cm) and late snowmelt.
+
+In 2001, ten plots (75x75 cm) were selected in each of the three habitats. Half of the plots were randomly assigned to the warming treatment in 2002 (open-top chambers, OTC) and the other half to control (CTL).
+
+## Data Analysis
+
+To test the effect of warming on plant height, a linear regression with a normal error distribution was used. Plant height was the reponse variable and warming treatment the predictor. Data were analysed in R version `r paste(R.version$major, R.version$minor, sep = ".")` [@R], using tidyverse for data manipulation and plots [@tidyverse]. The trait data are archived at [OSF](https://osf.io/smbqh).
+
+# Results
+
+```{r}
+#| label: load-data
+#| message: false
+
+# import data
+traits <- read_delim(
+    file = here("data/PFTC4_Svalbard_2018_ITEX_Traits.csv")) 
+
+# filter bistorta species and plant height
+bistorta <- traits |>
+  filter(Taxon == "bistorta vivipara",
+         Trait == "Plant_Height_cm")
+
+```
+
+```{r}
+#| label: model
+
+# run a linear model
+mod_height <- lm(Value ~ Treatment, data = bistorta)
+
+```
+
+In total, we measured the height of 77 *Bistorta vivipera* plants across the different habitats. The *Bistorta vivipera* in the OTC plots is 1.2 cm ± 0.39 taller than in the control plots (@fig-height-effect).
+
+```{r}
+#| label: fig-height-effect
+#| fig-cap: Mean plant height in control (CTL) and warm (OTC) plots.
+#| fig-width: 5.2
+
+ggplot(bistorta, aes(x = Treatment, y = Value)) +
+  geom_boxplot(fill = c("grey80", "red")) +
+  labs(x = "Treatment", y = "Plant height (cm)")
+```
