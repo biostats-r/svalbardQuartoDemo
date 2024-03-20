@@ -14,13 +14,10 @@ library(lubridate) # for handling dates & times
 library(gt)        # for tables
 library(broom)     # for extracting results from models
 library(conflicted)# prevent name conflicts between packages
-conflicts_prefer(dplyr::filter)
+conflict_prefer_all("dplyr", quiet = TRUE) # use dplyr if there is a name conflict
 
 # default plot theme
 theme_set(theme_bw())
-
-# default number of digit
-options(digits = 2)
 ```
 
 # Introduction
