@@ -56,10 +56,16 @@ bistorta <- traits |>
 ```
 
 ```{r}
-#| label: model
+#| label: filter-trait
 
+# Filter out the plant height data
 bistorta_height <- bistorta |> 
   filter(Trait == "Plant_Height_cm")
+```
+
+
+```{r}
+#| label: model
 
 mod <- lm(Value ~ Treatment, data = bistorta_height)
 mod_summary <- tidy(mod)
