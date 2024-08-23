@@ -10,7 +10,6 @@ csl: nordic-journal-of-botany.csl
 #| label: load-packages
 library(tidyverse) # for ggplot2, dplyr, readr etc
 library(here)      # for help finding files
-library(lubridate) # for handling dates & times
 library(gt)        # for tables
 library(broom)     # for extracting results from models
 library(conflicted)# prevent name conflicts between packages
