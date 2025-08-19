@@ -7,7 +7,7 @@ csl: nordic-journal-of-botany.csl
 ---
 
 ```{r}
-#| label: load-packages
+#| label: setup
 library(tidyverse) # for ggplot2, dplyr, readr etc
 library(here)      # for help finding files
 library(gt)        # for tables
@@ -61,7 +61,6 @@ bistorta <- traits |>
 bistorta_height <- bistorta |> 
   filter(Trait == "Plant_Height_cm")
 ```
-
 
 ```{r}
 #| label: model
