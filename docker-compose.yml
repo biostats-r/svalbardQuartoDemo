@@ -1,12 +1,12 @@
 version: "3.9"
 
 services:
-  rstudio:
+  rstudio-svalbard-quarto-demo:
     build:
       context: .
       dockerfile: Dockerfile
     platform: linux/amd64
-    container_name: rstudio-server
+    container_name: rstudio-svalbard-quarto-demo
     environment:
       - DISABLE_AUTH=true
     ports:
@@ -14,3 +14,8 @@ services:
     volumes:
       - ./rstudio-data:/home/rstudio
 
+
+# run `docker compose up` to start the container
+# use ctrl+c or `docker compose down` to stop the container
+# run `docker compose up --build` to rebuild the container
+# open browser to http://localhost:8787
