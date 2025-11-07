@@ -5,3 +5,17 @@
 
 *.html
 *_files/
+
+.cache/
+.local/
+.rstudio/
+.quarto/
+.targets/
+.targets.lock
+.targets.lock.local
+.targets.lock.remote
+.targets.lock.remote.local
+.targets.lock.remote.local.remote
+.targets.lock.remote.local.remote.local
+
+.config/
